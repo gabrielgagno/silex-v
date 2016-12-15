@@ -11,10 +11,16 @@ namespace App\Controllers;
 
 use Silex\Application;
 
-class ApplicationController
+class ApplicationController extends Controller
 {
-    public function index(Application $app)
+
+    public function __construct()
     {
-        return 'hi';
+        parent::__construct();
+    }
+
+    public function index()
+    {
+
     }
 }

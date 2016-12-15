@@ -9,7 +9,16 @@
 namespace App\Controllers;
 
 
-class Controller
-{
+use App\Libraries\Util;
+use Silex\Application;
 
+abstract class Controller
+{
+    protected $_app;
+    protected $_logger;
+
+    public function __construct()
+    {
+        $this->_app = Util::getApp();
+    }
 }

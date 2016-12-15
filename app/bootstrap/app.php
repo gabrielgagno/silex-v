@@ -62,3 +62,6 @@ $app->error(function (\Exception $e, $code) use ($app) {
 });
 # routes
 $app->mount('/', new \App\Routes());
+
+# initialize app to be accessible everywhere
+\App\Libraries\Util::initialize($app);
