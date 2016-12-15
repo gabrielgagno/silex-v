@@ -1,0 +1,62 @@
+{
+  "applications": [
+    {
+      "id":1,
+      "name": "SystemOne",
+      "constituent university": "UPLB"
+    },
+    {
+      "id":2,
+      "name": "CRS",
+      "constituent university": "UPD"
+    }
+  ],
+  "cardlink": 
+    {
+      "status": "051",
+      "description": "The customer mobile number cannot be blank"
+    }
+  ,
+  "validatemobilenumber": 
+    {
+      "status": "000",
+      "description": "valid mobile number"
+    }
+  ,
+  "requestfees": 
+    {
+      "status": "100",
+      "fee_amount": 250,
+      "description": "okay"
+    }
+  ,
+  "topup": 
+    {
+      "status": "00",
+      "ref_no": "12345678",
+      "description": "Transaction Successful",
+      "mobile_no": "09061334476",
+      "expDate": "010117"
+    }
+  ,
+  "reverse": 
+    {
+      "status": "00",
+      "ref_no": "22414141",
+      "description": "Transaction Cancelled",
+      "mobile_no": "090232323422"
+    }
+  ,
+  "transactioninquiry": 
+    {
+      "status": "00",
+      "description": "Not Found"
+    }
+  ,
+  "resetOTP": 
+    {
+      "status": "00",
+      "description": "Not Found"
+    }
+  
+}

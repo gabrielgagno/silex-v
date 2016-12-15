@@ -1,0 +1,21 @@
+{
+    "name": "gjpgagno/silex-v",
+    "description": "Basic MVC based from Silex",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "gjpgagno",
+            "email": "gjpgagno@gmail.com"
+        }
+    ],
+    "require": {
+        "silex/silex": "~2.0",
+        "vlucas/phpdotenv": "^2.2",
+        "mashape/unirest-php": "^3.0",
+        "bobalazek/config-service-provider": "^2.0",
+        "symfony/yaml": "^3.2",
+        "symfony/monolog-bridge": "^3.2",
+        "propel/propel": "~2.0@dev"
+    }
+}
