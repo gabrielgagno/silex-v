@@ -20,5 +20,6 @@ abstract class Controller
     public function __construct()
     {
         $this->_app = Util::getApp();
+        $this->_logger = $this->_app['monolog'];
     }
 }
