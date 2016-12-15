@@ -1,9 +1,11 @@
 <?php
 /**
- * Created by IntelliJ IDEA.
- * User: gjpgagno
- * Date: 12/15/16
- * Time: 3:04 PM
+ * Routes.php
+ * Contains the Routes class
+ * @author Gabriel John P. Gagno
+ * @version 1.0
+ * @copyright 2016 Stratpoint Technologies, Inc.
+ * @date 12/15/16
  */
 
 namespace App;
