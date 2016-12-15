@@ -25,8 +25,7 @@ catch (\Exception $e) {
     die();
 }
 
-$app['debug'] = true;
-
+$app['debug'] = \App\Libraries\Util::env('APP_DEBUG', false);
 # register services
 
 # register logger service provider
@@ -62,7 +61,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
     // Do something else (handle error 500 etc.)
 });
 # routes
-$app->get('/hello/{name}', function ($name) use ($app) {
-    return 'Hello '.$app->escape($name);
-});
-//$app->mount('/', new \App\Routes());
+$app->mount('/', new \App\Routes());
+
+# initialize app to be accessible everywhere
+\App\Libraries\Util::initialize($app);
