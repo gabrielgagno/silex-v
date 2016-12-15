@@ -9,7 +9,9 @@
 namespace App\Controllers;
 
 
+use App\Libraries\RestUtils;
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
 
 class ApplicationController extends Controller
 {
@@ -19,8 +21,10 @@ class ApplicationController extends Controller
         parent::__construct();
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return 'hi';
+        $rawResponse = RestUtils::requestHandler($this->_logger, $request, 'http://localhost:3000/applications', __FUNCTION__);
+        $response = RestUtils::responseHandler($this->_logger, $rawResponse->code, $rawResponse);
+        return $response;
     }
 }
