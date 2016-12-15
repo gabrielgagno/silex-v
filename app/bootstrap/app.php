@@ -5,7 +5,7 @@
  * Date: 12/15/16
  * Time: 1:31 PM
  */
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__.'/../../vendor/autoload.php';
 # initialize Silex Application Instance
 $app = new Silex\Application();
 $app->boot();
