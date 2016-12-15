@@ -1,9 +1,11 @@
 <?php
 /**
- * Created by IntelliJ IDEA.
- * User: gjpgagno
- * Date: 12/15/16
- * Time: 4:32 PM
+ * RestUtils.php
+ * Contains the P2MEWrapper class
+ * @author Gabriel John P. Gagno
+ * @version 1.0
+ * @copyright 2016 Stratpoint Technologies, Inc.
+ * @date 2016/12/15
  */
 
 namespace App\Libraries;

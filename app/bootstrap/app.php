@@ -1,11 +1,14 @@
 <?php
 /**
- * Created by IntelliJ IDEA.
- * User: gjpgagno
- * Date: 12/15/16
- * Time: 1:31 PM
+ * bootstrap/app.php
+ * The main loading file of this P2ME API Middleware
+ * @author Gabriel John P. Gagno
+ * @version 1.0
+ * @copyright 2016 Stratpoint Technologies, Inc.
+ * @date 12/15/16
  */
 require_once __DIR__.'/../../vendor/autoload.php';
+
 # initialize Silex Application Instance
 $app = new Silex\Application();
 $app->boot();

@@ -12,6 +12,11 @@ namespace App\Controllers;
 use App\Libraries\Util;
 use Silex\Application;
 
+/**
+ * Class Controller
+ * Base controller that must be extended by all other controllers
+ * @package App\Controllers
+ */
 abstract class Controller
 {
     protected $_app;
