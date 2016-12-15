@@ -9,7 +9,12 @@
 namespace App\Controllers;
 
 
+use Silex\Application;
+
 class ApplicationController
 {
-
+    public function index(Application $app)
+    {
+        return 'hi';
+    }
 }
