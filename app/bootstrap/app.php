@@ -49,6 +49,16 @@ $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../../config/data
 # register config service provider for constants
 $app->register(new \Igorw\Silex\ConfigServiceProvider(__DIR__."/../../config/constants.php"));
 
+$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
+    'db.options'    =>  array(
+        'driver'    =>  'pdo_mysql',
+        'dbname'    =>  'unimart',
+        'password'  =>  'admin',
+        'charset'   =>  'utf8',
+        'port'      =>  '3306'
+    )
+));
+
 # Re
 $app->error(function (\Exception $e, $code) use ($app) {
     if (404 === $code) {

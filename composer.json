@@ -24,7 +24,8 @@
             "App\\Controllers\\" : "app/controllers",
             "App\\Libraries\\" : "app/libraries",
             "App\\Middleware\\" : "app/middleware",
-            "App\\Providers\\" : "app/providers"
+            "App\\Providers\\" : "app/providers",
+            "App\\Models\\" : "app/models"
         }
     }
 }
