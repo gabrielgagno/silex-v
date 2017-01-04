@@ -49,6 +49,7 @@ $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../../config/data
 # register config service provider for constants
 $app->register(new \Igorw\Silex\ConfigServiceProvider(__DIR__."/../../config/constants.php"));
 
+# register config service provider for doctrine
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options'    =>  array(
         'driver'    =>  'pdo_mysql',
@@ -57,6 +58,11 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
         'charset'   =>  'utf8',
         'port'      =>  '3306'
     )
+));
+
+# register doctrine ORM
+$app->register(new \Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), array(
+
 ));
 
 # Re
