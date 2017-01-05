@@ -62,7 +62,15 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 
 # register doctrine ORM
 $app->register(new \Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), array(
-
+    'orm.em.options'    =>  array(
+        'mappings'  =>  array(
+            array(
+                'type'      =>  'php',
+                'namespace' =>  'App\Models',
+                'path'      =>  __DIR__.'/app/models'
+            )
+        )
+    )
 ));
 
 # Re
