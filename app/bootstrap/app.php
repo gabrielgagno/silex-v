@@ -75,7 +75,10 @@ $app->register(new \Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), a
 
 # Re
 $app->error(function (\Exception $e, $code) use ($app) {
-    return $app->json(array('error'=>'error'));
+    if($app['debug']) {
+        return;
+    }
+    return $app->json(array('error'=>$e->getMessage()));
     // Do something else (handle error 500 etc.)
 });
 # routes
