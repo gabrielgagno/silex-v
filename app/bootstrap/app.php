@@ -75,16 +75,7 @@ $app->register(new \Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), a
 
 # Re
 $app->error(function (\Exception $e, $code) use ($app) {
-    if (404 === $code) {
-        return $app->json(
-            array(
-                'error' => 'Resource not found',
-                'error_description' => 'the requested URL is not found'
-            ),
-            404,
-            array('Content-Type' => 'application/json')
-        );
-    }
+    return $app->json(array('error'=>'error'));
     // Do something else (handle error 500 etc.)
 });
 # routes
