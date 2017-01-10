@@ -9,6 +9,8 @@
  */
 require_once __DIR__.'/../../vendor/autoload.php';
 
+use App\Libraries\Util;
+
 # initialize Silex Application Instance
 $app = new Silex\Application();
 $app->boot();
@@ -28,7 +30,7 @@ catch (\Exception $e) {
     die();
 }
 
-$app['debug'] = \App\Libraries\Util::env('APP_DEBUG', false);
+$app['debug'] = filter_var(Util::env('APP_DEBUG', false), FILTER_VALIDATE_BOOLEAN);
 # register services
 
 # register logger service provider
@@ -75,11 +77,7 @@ $app->register(new \Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), a
 
 # Re
 $app->error(function (\Exception $e, $code) use ($app) {
-    if($app['debug']) {
-        return;
-    }
     return $app->json(array('error'=>$e->getMessage()));
-    // Do something else (handle error 500 etc.)
 });
 # routes
 $app->mount('/', new \App\Routes());
