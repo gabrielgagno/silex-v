@@ -9,7 +9,11 @@
  */
 require_once __DIR__.'/../../vendor/autoload.php';
 
+# use libraries
 use App\Libraries\Util;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 
 # initialize Silex Application Instance
 $app = new Silex\Application();
@@ -58,8 +62,9 @@ $app->register(new Silex\Provider\DoctrineServiceProvider());
 $app->register(new \Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider());
 
 # Re
-$app->error(function (\Exception $e, $code) use ($app) {
-    return $app->json(array('error'=>$e->getMessage()));
+$app->error(function (\Exception $e, Request $request, $code) use ($app) {
+    $message = Util::formatErrorHandler($e, $request, $code);
+    return $app->json($message, $code);
 });
 # routes
 $app->mount('/', new \App\Routes());
