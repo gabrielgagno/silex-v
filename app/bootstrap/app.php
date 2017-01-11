@@ -52,28 +52,10 @@ $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../../config/data
 $app->register(new \Igorw\Silex\ConfigServiceProvider(__DIR__."/../../config/constants.php"));
 
 # register config service provider for doctrine
-$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
-    'db.options'    =>  array(
-        'driver'    =>  'pdo_mysql',
-        'dbname'    =>  'unimart',
-        'password'  =>  'admin',
-        'charset'   =>  'utf8',
-        'port'      =>  '3306'
-    )
-));
+$app->register(new Silex\Provider\DoctrineServiceProvider());
 
 # register doctrine ORM
-$app->register(new \Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider(), array(
-    'orm.em.options'    =>  array(
-        'mappings'  =>  array(
-            array(
-                'type'      =>  'php',
-                'namespace' =>  'App\Models',
-                'path'      =>  __DIR__.'/app/models'
-            )
-        )
-    )
-));
+$app->register(new \Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider());
 
 # Re
 $app->error(function (\Exception $e, $code) use ($app) {

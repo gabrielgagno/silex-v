@@ -7,19 +7,26 @@
  * @version 1.0
  * @copyright 2016 Stratpoint Technologies, Inc.
  */
-
+use App\Libraries\Util;
 return array(
-    'db' => \App\Libraries\Util::env('DB_CONNECTION', 'mysql'),
-    'settings' => array(
-        'mysql' => array(
-            'dbname' => \App\Libraries\Util::env('DB_DATABASE', 'sample'),
-            'username'   => \App\Libraries\Util::env('DB_USERNAME', 'usr'),
-            'password'  => \App\Libraries\Util::env('DB_PASSWORD', 'pass'),
-            'host'   => \App\Libraries\Util::env('DB_HOST', 'localhost'),
-            'port'   => '3306'
-        )
+    'db.options'    =>  array(
+        'driver'    =>  Util::env('DB_DRIVER', 'pdo_mysql'),
+        'charset'   =>  Util::env('DB_CHARSET', 'utf8'),
+        'host'      =>  Util::env('DB_HOST', 'localhost'),
+        'dbname'    =>  Util::env('DB_DATABASE', 'silex-v'),
+        'user'      =>  Util::env('DB_USER', 'root'),
+        'password'  =>  Util::env('DB_PASSWORD', 'secret')
     ),
-    'drivers' => array(
-        'mysql' => \App\Libraries\Util::env('DB_DRIVER', 'pdo_mysql')
+
+    'orm.proxies_dir'   =>  __DIR__.'/../cache/doctrine/proxies',
+    'orm.default_cache' =>  'array',
+    'orm.em.options'    =>  array(
+        'mappings'  =>  array(
+            array(
+                'type'      =>  'php',
+                'namespace' =>  'App\Models',
+                'path'      =>  __DIR__.'/../app/models'
+            )
+        )
     )
 );
