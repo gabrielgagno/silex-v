@@ -10,6 +10,7 @@
 namespace App\Libraries;
 
 use Silex\Application;
+use Symfony\Component\HttpFoundation\Request;
 
 class Util
 {
@@ -30,5 +31,27 @@ class Util
             return getenv($varName);
         }
         return $defaultValue;
+    }
+
+    public static function formatErrorHandler(\Exception $e, Request $request, $code) {
+        $message = array();
+        switch($code) {
+            case 404:
+                $message = array(
+                    'error'         =>  '404 Not Found',
+                    'code'          =>  $code,
+                    'description'   =>  $e->getMessage()
+                );
+                break;
+            default:
+                $message = array(
+                    'error'         =>  '500 Internal Server Error',
+                    'code'          =>  $code,
+                    'description'   =>  $e->getMessage()
+                );
+                break;
+        }
+
+        return $message;
     }
 }

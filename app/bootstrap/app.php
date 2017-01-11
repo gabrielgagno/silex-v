@@ -9,6 +9,9 @@
  */
 require_once __DIR__.'/../../vendor/autoload.php';
 
+use App\Libraries\Util;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 # initialize Silex Application Instance
 $app = new Silex\Application();
 $app->boot();
@@ -50,18 +53,9 @@ $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../../config/data
 $app->register(new \Igorw\Silex\ConfigServiceProvider(__DIR__."/../../config/constants.php"));
 
 # Re
-$app->error(function (\Exception $e, $code) use ($app) {
-    if (404 === $code) {
-        return $app->json(
-            array(
-                'error' => 'Resource not found',
-                'error_description' => 'the requested URL is not found'
-            ),
-            404,
-            array('Content-Type' => 'application/json')
-        );
-    }
-    // Do something else (handle error 500 etc.)
+$app->error(function (\Exception $e, Request $request, $code) use ($app) {
+    $message = Util::formatErrorHandler($e, $request, $code);
+    return $app->json($message, $code);
 });
 # routes
 $app->mount('/', new \App\Routes());
