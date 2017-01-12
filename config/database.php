@@ -23,7 +23,7 @@ return array(
     'orm.em.options'    =>  array(
         'mappings'  =>  array(
             array(
-                'type'      =>  'php',
+                'type'      =>  'annotation',
                 'namespace' =>  'App\Models',
                 'path'      =>  __DIR__.'/../app/models'
             )

@@ -17,7 +17,10 @@ namespace App\Models;
 class Application
 {
     /**
+     * @Id
      * @Column(type="integer")
+     * @GeneratedValue(strategy="SEQUENCE")
+     *
      */
     private $id;
 
