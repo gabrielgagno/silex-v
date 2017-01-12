@@ -8,5 +8,5 @@
 
 return array(
     'environment' => 'local',
-    'name'    => \App\Libraries\Util::env('APP_NAME', 'silex-basic')
+    'name'    => getenv('APP_NAME')
 );
