@@ -9,9 +9,12 @@
  */
 require_once __DIR__.'/../../vendor/autoload.php';
 
+# use libraries
 use App\Libraries\Util;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
+
 # initialize Silex Application Instance
 $app = new Silex\Application();
 $app->boot();
@@ -31,7 +34,7 @@ catch (\Exception $e) {
     die();
 }
 
-$app['debug'] = \App\Libraries\Util::env('APP_DEBUG', false);
+$app['debug'] = filter_var(Util::env('APP_DEBUG', false), FILTER_VALIDATE_BOOLEAN);
 # register services
 
 # register logger service provider
@@ -51,6 +54,12 @@ $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../../config/data
 
 # register config service provider for constants
 $app->register(new \Igorw\Silex\ConfigServiceProvider(__DIR__."/../../config/constants.php"));
+
+# register config service provider for doctrine
+$app->register(new Silex\Provider\DoctrineServiceProvider());
+
+# register doctrine ORM
+$app->register(new \Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider());
 
 # Re
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
