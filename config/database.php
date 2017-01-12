@@ -25,7 +25,7 @@ return array(
             array(
                 'type'      =>  'annotation',
                 'namespace' =>  'App\Models',
-                'path'      => __DIR__ . '/../src/Models'
+                'path'      => __DIR__ . '/../src/App/Models'
             )
         )
     )
