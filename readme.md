@@ -30,6 +30,9 @@ for reference.
 This skeleton is written in PHP using the Silex framework. While primarily using PHP 5.4, It's been
 tested to work in PHP 7.
 
+In downloading its dependencies, it uses Composer as package manager. This package is also compliant
+with [PSR-4 autoloader rules](http://www.php-fig.org/psr/psr-4/).
+
 It is dependent on [vlucas/phpdotenv](https://github.com/vlucas/phpdotenv) for the environment
 configuration. As for the other configuration files to be loaded on the application, it uses
 [bobalazek/ConfigServiceProvider](https://github.com/bobalazek/ConfigServiceProvider).
@@ -59,7 +62,7 @@ This basic skeleton is structured as follows:
 ├── public
 │   └── index.php
 ├── readme.md
-└── src
+└── src (psr-4 compliant directory)
     └── App
         ├── Controllers
         │   └── Controller.php
@@ -69,6 +72,94 @@ This basic skeleton is structured as follows:
         ├── Models
         └── Routes.php
 ```
+
+## Usage
+After setting up and finishing the configurations, these are some of the things one can do:
+
+**NOTE: WHEN CREATING ANY CLASS, PLEASE RUN ```composer dumpautoload -o``` IN ORDER TO RELOAD THE
+CLASSES.**
+
+
+### Create Controllers
+Simply create a PHP class in the ```src/App/Controllers``` directory, and use the namespace
+```App\Controllers```. It is **NECESSARY** to extend the ```Controller``` class included in the folder.
+
+### Create Libraries and other Utility Classes
+Simply create a class in the ```src/App/Libraries``` directory, and use the namespace
+```App\Libraries```.
+
+### Add routes
+Inside the ```Routes.php``` file, insert all additional routes inside the ```connect()```
+function, after the line
+
+```php
+    $routes = $app['controllers_factory'];
+```
+
+### Create Models
+The models component of this application is written with Doctrine, therefore Doctrine rules
+will apply for the most part.
+
+In its most basic usage, create a *mapping* class under ```src/Models``` under the ```App\Models``` namespace.
+Then, create the entity as one would make a PHP class. However, in order to let Doctrine ORM know how
+it would go about in constructing the database table of the entity, one must put *annotations*. Please
+refer [to this](http://docs.doctrine-project.org/projects/doctrine-common/en/latest/reference/annotations.html)
+for a more complete guide on how to use annotations (*developer's note: this is a temporary measure and will be
+replaced soon*). Refer to this example:
+
+```php
+<?php
+namespace App\Models;
+
+
+/**
+ * @Entity
+ * @Table(name="applications")
+ * @package App\Models
+ */
+class Application
+{
+    /**
+     * @Id
+     * @Column(type="integer")
+     *
+     */
+    private $id;
+
+    /**
+     * @Column(type="string", length=140)
+     */
+    private $name;
+
+    /**
+     * @Column(type="string")
+     */
+    private $code;
+}
+```
+
+In order to validate schema before generating entities, run
+
+```
+vendor/bin/doctrine orm:validate
+```
+
+When the validation is finished, run the following to create the entity:
+
+```
+vendor/bin/doctrine orm:generate-entities
+```
+
+This will override the manually-created classes and add some basic getter and setter methods. After
+this, run
+
+```
+vendor/bin/doctrine orm:create-schema
+```
+
+to create the tables.
+
+For more reference in using Doctrine, refer [here](http://docs.doctrine-project.org/en/latest/#).
 
 ## Testing
 A full-blown test suite is yet to be created. For now, Please go to ```public``` and run
