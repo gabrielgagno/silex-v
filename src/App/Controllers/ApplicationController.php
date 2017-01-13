@@ -35,6 +35,9 @@ class ApplicationController extends Controller
             //die(var_dump($application));
             $result[] = $application->getApplication();
         }
-        return $this->_app->json($result);
+        return $this->_app->json(array(
+            'result' => 'success',
+            'message' => $result
+        ));
     }
 }
