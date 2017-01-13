@@ -90,4 +90,13 @@ class Application
     {
         return $this->code;
     }
+
+    public function getApplication()
+    {
+        return array(
+            'id'    =>  $this->id,
+            'name'    =>  $this->name,
+            'code'    =>  $this->code
+        );
+    }
 }
