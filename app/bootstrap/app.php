@@ -34,8 +34,10 @@ catch (\Exception $e) {
     die();
 }
 
+# Switch $app['debug'] to on or off
 $app['debug'] = filter_var(Util::env('APP_DEBUG', false), FILTER_VALIDATE_BOOLEAN);
-# register services
+
+# REGISTER SERVICS
 
 # register logger service provider
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
@@ -61,13 +63,14 @@ $app->register(new Silex\Provider\DoctrineServiceProvider());
 # register doctrine ORM
 $app->register(new \Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider());
 
-# Re
+# Register errors
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     $message = Util::formatErrorHandler($e, $request, $code);
     return $app->json($message, $code);
 });
-# routes
+
+# ROUTES
 $app->mount('/', new \App\Routes());
 
-# initialize app to be accessible everywhere
+# initialize app in util library to be accessible everywhere
 \App\Libraries\Util::initialize($app);

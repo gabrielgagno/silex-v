@@ -1,7 +1,7 @@
 <?php
 /**
  * RestUtils.php
- * Contains the P2MEWrapper class
+ * Contains the RestUtils class
  * @author Gabriel John P. Gagno
  * @version 1.0
  * @copyright 2016 Stratpoint Technologies, Inc.

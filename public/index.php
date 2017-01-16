@@ -2,7 +2,7 @@
 /**
  * index.php
  *
- * This file is the entry point to the P2ME API middleware
+ * This file is the entry point to the application
  * @author Gabriel John P. Gagno <ggagno@stratpoint.com>
  * @version 1.0
  * @copyright 2016 Stratpoint Technologies, Inc.
