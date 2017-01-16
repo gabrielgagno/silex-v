@@ -1,12 +1,12 @@
 <?php
-
 /**
- * Created by IntelliJ IDEA.
- * User: gjpgagno
- * Date: 12/15/16
- * Time: 2:37 PM
+ * Util.php
+ * Contains the Util class
+ * @author Gabriel John P. Gagno
+ * @version 1.0
+ * @copyright 2017 Stratpoint Technologies, Inc.
+ * @date 2016/12/15
  */
-
 namespace App\Libraries;
 
 use Silex\Application;

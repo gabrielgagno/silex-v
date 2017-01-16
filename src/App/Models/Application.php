@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: gjpgagno
- * Date: 1/11/17
- * Time: 2:14 PM
- */
-
 namespace App\Models;
 
 
@@ -89,5 +82,14 @@ class Application
     public function getCode()
     {
         return $this->code;
+    }
+
+    public function getApplication()
+    {
+        return array(
+            'id'    =>  $this->id,
+            'name'    =>  $this->name,
+            'code'    =>  $this->code
+        );
     }
 }
