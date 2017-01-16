@@ -9,6 +9,12 @@
  */
 require_once __DIR__.'/../../vendor/autoload.php';
 
+# use libraries
+use App\Libraries\Util;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+
 # initialize Silex Application Instance
 $app = new Silex\Application();
 $app->boot();
@@ -28,8 +34,10 @@ catch (\Exception $e) {
     die();
 }
 
-$app['debug'] = \App\Libraries\Util::env('APP_DEBUG', false);
-# register services
+# Switch $app['debug'] to on or off
+$app['debug'] = filter_var(Util::env('APP_DEBUG', false), FILTER_VALIDATE_BOOLEAN);
+
+# REGISTER SERVICS
 
 # register logger service provider
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
@@ -49,22 +57,20 @@ $app->register(new Igorw\Silex\ConfigServiceProvider(__DIR__."/../../config/data
 # register config service provider for constants
 $app->register(new \Igorw\Silex\ConfigServiceProvider(__DIR__."/../../config/constants.php"));
 
-# Re
-$app->error(function (\Exception $e, $code) use ($app) {
-    if (404 === $code) {
-        return $app->json(
-            array(
-                'error' => 'Resource not found',
-                'error_description' => 'the requested URL is not found'
-            ),
-            404,
-            array('Content-Type' => 'application/json')
-        );
-    }
-    // Do something else (handle error 500 etc.)
+# register config service provider for doctrine
+$app->register(new Silex\Provider\DoctrineServiceProvider());
+
+# register doctrine ORM
+$app->register(new \Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider());
+
+# Register errors
+$app->error(function (\Exception $e, Request $request, $code) use ($app) {
+    $message = Util::formatErrorHandler($e, $request, $code);
+    return $app->json($message, $code);
 });
-# routes
+
+# ROUTES
 $app->mount('/', new \App\Routes());
 
-# initialize app to be accessible everywhere
+# initialize app in util library to be accessible everywhere
 \App\Libraries\Util::initialize($app);

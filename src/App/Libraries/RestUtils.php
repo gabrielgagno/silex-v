@@ -1,7 +1,7 @@
 <?php
 /**
  * RestUtils.php
- * Contains the P2MEWrapper class
+ * Contains the RestUtils class
  * @author Gabriel John P. Gagno
  * @version 1.0
  * @copyright 2016 Stratpoint Technologies, Inc.
@@ -82,7 +82,7 @@ class RestUtils
         $response = array(
             "status"        => $status,
             "timestamp"     => date("Y-m-d H:i:s"),
-            "p2me_result"   => $message
+            "result"   => $message
         );
         $logger->addInfo("RESPONSE ".$code." ".json_encode($message));
         return new Response(
