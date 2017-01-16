@@ -11,9 +11,9 @@ namespace App\Models;
 
 class BaseModel
 {
-    private $nameSpace;
-    private $modelName;
-    private $tableName;
+    protected $nameSpace;
+    protected $modelName;
+    protected $tableName;
 
     public function __construct($modelName, $tableName = null)
     {
