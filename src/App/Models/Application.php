@@ -7,7 +7,7 @@ namespace App\Models;
  * @Table(name="applications")
  * @package App\Models
  */
-class Application
+class Application extends BaseModel
 {
     /**
      * @Id
@@ -91,5 +91,19 @@ class Application
             'name'    =>  $this->name,
             'code'    =>  $this->code
         );
+    }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return Application
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 }
