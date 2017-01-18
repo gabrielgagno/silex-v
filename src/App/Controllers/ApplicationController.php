@@ -24,19 +24,40 @@ class ApplicationController extends Controller
 
     public function index(Request $request)
     {
-        $app = new Application('Application');
         $all = $this->_app['orm.em']->getRepository('App\Models\Application')->findAll(null, null, Query::HYDRATE_ARRAY);
-/*
-        $applicationRepository = $this->_app['orm.em']->getRepository('App\Models\Application');
-        $applications = $applicationRepository->findAll(Query::HYDRATE_SCALAR);
-        $result = array();
-        foreach($applications as $application) {
-            //die(var_dump($application));
-            $result[] = $application->getApplication();
-        }*/
+
         return $this->_app->json(array(
             'result' => 'success',
             'message' => $all
         ));
+    }
+
+    public function show($id)
+    {
+        $app = $this->_app['orm.em']->getRepository('App\Models\Application')->findAll(null, null, Query::HYDRATE_ARRAY);
+
+        if($app==null) {
+
+        }
+
+        return $this->_app->json(array(
+            'result' => 'success',
+            'message' => $app
+        ));
+    }
+
+    public function create(Request $request)
+    {
+
+    }
+
+    public function update(Request $request, $id)
+    {
+
+    }
+
+    public function destroy($id)
+    {
+
     }
 }

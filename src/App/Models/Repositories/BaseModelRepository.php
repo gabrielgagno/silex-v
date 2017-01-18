@@ -25,9 +25,14 @@ class BaseModelRepository extends EntityRepository
         return $query->getResult($returnType);
     }
 
-    public function findOne($id)
+    public function findOne($id, $returnType = Query::HYDRATE_OBJECT)
     {
+        $em = Util::getApp()['orm.em'];
+        $query = $em->createQuery(
+            'SELECT c from '.$this->_entityName. ' c where id='.$id
+        );
 
+        return $query->getResult($returnType);
     }
 
 }
