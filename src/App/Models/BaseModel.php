@@ -16,7 +16,7 @@ class BaseModel
     protected $nameSpace;
     protected $modelName;
     protected $tableName;
-    private $_app;
+    protected $_app;
 
     public function __construct($tableName = null)
     {
@@ -61,6 +61,6 @@ class BaseModel
 
     public function arrayForm()
     {
-
+        return 1;
     }
 }

@@ -9,6 +9,12 @@ namespace App\Models;
  */
 class Application extends BaseModel
 {
+
+    public function __construct($tableName = null)
+    {
+        parent::__construct($tableName);
+    }
+
     /**
      * @Id
      * @Column(type="integer")
