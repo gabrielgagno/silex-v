@@ -15,11 +15,13 @@ use Doctrine\ORM\Query;
 
 class BaseModelRepository extends EntityRepository
 {
-    public function findAll($limit = null, $offset = null, $returnType = Query::HYDRATE_OBJECT)
+    public function findAll($limit = 0, $offset = 0, $returnType = Query::HYDRATE_OBJECT)
     {
         $em = Util::getApp()['orm.em'];
+        $queryString = 'SELECT c from '.$this->_entityName. ' c limit '.$limit.' offset '.$offset;
+
         $query = $em->createQuery(
-            'SELECT c from '.$this->_entityName. ' c'
+            $queryString
         );
 
         return $query->getResult($returnType);
