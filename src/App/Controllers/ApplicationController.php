@@ -25,7 +25,7 @@ class ApplicationController extends Controller
     public function index(Request $request)
     {
         $app = new Application('Application');
-        $all = Application::getAll();
+        $all = $this->_app['orm.em']->getRepository('App\Models\Application')->findAll(null, null, Query::HYDRATE_ARRAY);
 /*
         $applicationRepository = $this->_app['orm.em']->getRepository('App\Models\Application');
         $applications = $applicationRepository->findAll(Query::HYDRATE_SCALAR);
@@ -34,13 +34,9 @@ class ApplicationController extends Controller
             //die(var_dump($application));
             $result[] = $application->getApplication();
         }*/
-        foreach($all as $a) {
-            //die(var_dump($application));
-            $a->arrayForm();
-        }
         return $this->_app->json(array(
             'result' => 'success',
-            //'message' => $result
+            'message' => $all
         ));
     }
 }

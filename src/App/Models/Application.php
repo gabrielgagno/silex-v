@@ -3,16 +3,16 @@ namespace App\Models;
 
 
 /**
- * @Entity
+ * @Entity(repositoryClass="App\Models\Repositories\BaseModelRepository")
  * @Table(name="applications")
  * @package App\Models
  */
-class Application extends BaseModel
+class Application
 {
 
     public function __construct($tableName = null)
     {
-        parent::__construct($tableName);
+        //parent::__construct($tableName);
     }
 
     /**
@@ -88,15 +88,6 @@ class Application extends BaseModel
     public function getCode()
     {
         return $this->code;
-    }
-
-    public function getApplication()
-    {
-        return array(
-            'id'    =>  $this->id,
-            'name'    =>  $this->name,
-            'code'    =>  $this->code
-        );
     }
 
     /**
