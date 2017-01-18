@@ -34,10 +34,14 @@ class ApplicationController extends Controller
 
     public function show($id)
     {
-        $app = $this->_app['orm.em']->getRepository('App\Models\Application')->findAll(null, null, Query::HYDRATE_ARRAY);
+        $app = $this->_app['orm.em']->getRepository('App\Models\Application')->findOne(Query::HYDRATE_ARRAY);
 
         if($app==null) {
-
+            return $this->_app->json(
+                array(
+                    'error' => 'not found'
+                )
+            );
         }
 
         return $this->_app->json(array(
@@ -70,11 +74,49 @@ class ApplicationController extends Controller
 
     public function update(Request $request, $id)
     {
+        /*
+        $application  = $this->_app['orm.em']->getRepository('App\Models\Application')
+            ->findOne($id);
+
+        if($application == null) {
+            return $this->_app->json(
+                array(
+                    'error' =>  'not found'
+                )
+            );
+        }
+        */
 
     }
 
     public function destroy($id)
     {
+        $application  = $this->_app['orm.em']->getRepository('App\Models\Application')
+            ->findOne($id);
+
+        if($application == null) {
+            return $this->_app->json(
+                array(
+                    'error' =>  'not found'
+                )
+            );
+        }
+
+        try {
+            $this->_app['orm.em']->remove($application);
+            $this->_app['orm.em']->flush();
+        } catch (\Exception $e) {
+            die($e->getMessage());
+            return $this->_app->json(array(
+                "error" => "error"
+            ));
+        }
+
+        return $this->_app->json(
+            array(
+                "delete successful" => "delete"
+            )
+        );
 
     }
 }

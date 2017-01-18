@@ -31,10 +31,18 @@ class BaseModelRepository extends EntityRepository
     {
         $em = Util::getApp()['orm.em'];
         $query = $em->createQuery(
-            'SELECT c from '.$this->_entityName. ' c where id='.$id
+            'SELECT c from '.$this->_entityName. ' c where c.id='.$id
         );
+        $result = null;
+        try{
+            $result = $query->getSingleResult($returnType);
+        } catch (\Exception $e) {
+            if($result==NULL){
+                return null;
+            }
+        }
 
-        return $query->getResult($returnType);
+        return $query->getSingleResult($returnType);
     }
 
 }
