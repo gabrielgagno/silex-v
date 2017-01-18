@@ -48,7 +48,24 @@ class ApplicationController extends Controller
 
     public function create(Request $request)
     {
-
+        $application = new Application;
+        $application->setCode($request->get('code'));
+        $application->setName($request->get('name'));
+        try {
+            $this->_app['orm.em']->persist($application);
+            $response = $this->_app['orm.em']->flush();
+        } catch (\Exception $e) {
+            return $this->_app->json(
+                array(
+                    "error" => "error"
+                )
+            );
+        }
+        return $this->_app->json(
+            array(
+                "please wait" => "wait"
+            )
+        );
     }
 
     public function update(Request $request, $id)
