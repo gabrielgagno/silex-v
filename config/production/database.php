@@ -8,14 +8,15 @@
  * @copyright 2016 Stratpoint Technologies, Inc.
  */
 use App\Libraries\Util;
+
 return array(
     'db.options'    =>  array(
         'driver'    =>  Util::env('DB_DRIVER', 'pdo_mysql'),
         'charset'   =>  Util::env('DB_CHARSET', 'utf8'),
         'host'      =>  Util::env('DB_HOST', 'localhost'),
-        'dbname'    =>  Util::env('DB_DATABASE', 'silex-v'),
+        'dbname'    =>  Util::env('DB_DATABASE', 'unimart'),
         'user'      =>  Util::env('DB_USER', 'root'),
-        'password'  =>  Util::env('DB_PASSWORD', 'secret')
+        'password'  =>  Util::env('DB_PASSWORD', 'password')
     ),
 
     'orm.proxies_dir'   =>  __DIR__.'/../cache/doctrine/proxies',
