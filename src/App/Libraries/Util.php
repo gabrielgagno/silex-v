@@ -28,7 +28,9 @@ class Util
     public static function env($varName, $defaultValue = NULL)
     {
         if(isset($varName)||!empty($varName)) {
-            return getenv($varName);
+            if(getenv($varName)){
+                return getenv($varName);
+            }
         }
         return $defaultValue;
     }
