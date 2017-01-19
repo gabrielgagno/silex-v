@@ -33,24 +33,28 @@ class Util
         return $defaultValue;
     }
 
-    public static function formatErrorHandler(\Exception $e, Request $request, $code) {
-        $message = array();
-        switch($code) {
-            case 404:
-                $message = array(
-                    'error'         =>  '404 Not Found',
-                    'code'          =>  $code,
-                    'description'   =>  $e->getMessage()
-                );
-                break;
-            default:
-                $message = array(
-                    'error'         =>  '500 Internal Server Error',
-                    'code'          =>  $code,
-                    'description'   =>  $e->getMessage()
-                );
-                break;
+    public static function formatSuccessHandler($resultsArray, $metadataArray = null)
+    {
+        if(!$metadataArray==null) {
+            return array(
+                'metadata'  =>  $metadataArray,
+                'results'   =>  $resultsArray['result']
+            );
         }
+        return array(
+            'result'   =>  $resultsArray
+        );
+
+
+    }
+
+    public static function formatErrorHandler($status_code, $error_code, $messageArray) {
+        $message = array(
+            "status"    =>  $status_code,
+            "developer_message" =>  $messageArray['developer_message'],
+            "user_message"  =>  $messageArray['user_message'],
+            "error_code"    =>  $error_code
+        );
 
         return $message;
     }

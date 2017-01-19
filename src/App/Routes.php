@@ -20,6 +20,10 @@ class Routes implements ControllerProviderInterface
     {
         $routes = $app['controllers_factory'];
         $routes->get('/applications', 'App\\Controllers\\ApplicationController::index');
+        $routes->get('/applications/{id}', 'App\\Controllers\\ApplicationController::show');
+
+        $routes->post('/applications', 'App\\Controllers\\ApplicationController::create');
+        $routes->delete('/applications/{id}', 'App\\Controllers\\ApplicationController::destroy');
         return $routes;
     }
 }
