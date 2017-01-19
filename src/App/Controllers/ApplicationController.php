@@ -10,6 +10,7 @@ namespace App\Controllers;
 
 
 use App\Libraries\RestUtils;
+use App\Libraries\Util;
 use Doctrine\ORM\Query;
 use App\Models\Application;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,18 +25,29 @@ class ApplicationController extends Controller
 
     public function index(Request $request)
     {
-        $all = $this->_app['orm.em']->getRepository('App\Models\Application')->findAll(null, null, Query::HYDRATE_ARRAY);
+        $limit = $request->get('limit')!=null?$request->get('limit'):0;
+        $offset = $request->get('offset')!=null?$request->get('offset'):0;
 
-        return $this->_app->json(array(
-            'result' => 'success',
-            'message' => $all
-        ));
+        try{
+            $all = $this->_app['orm.em']->getRepository('App\Models\Application')->findAll(Query::HYDRATE_ARRAY, $limit, $offset);
+        } catch (\Exception $e) {
+            return $e->getTraceAsString();
+        }
+
+        $metadataArray = array(
+            'limit'       =>  $limit,
+            'offset'      =>  $offset,
+            'count'       =>  count($all)
+        );
+
+        $resultsArray = Util::formatSuccessHandler($all, $metadataArray);
+
+        return $this->_app->json($resultsArray);
     }
 
     public function show($id)
     {
-        $app = $this->_app['orm.em']->getRepository('App\Models\Application')->findOne(Query::HYDRATE_ARRAY);
-
+        $app = $this->_app['orm.em']->getRepository('App\Models\Application')->findOne($id, Query::HYDRATE_ARRAY);
         if($app==null) {
             return $this->_app->json(
                 array(
@@ -44,10 +56,9 @@ class ApplicationController extends Controller
             );
         }
 
-        return $this->_app->json(array(
-            'result' => 'success',
-            'message' => $app
-        ));
+        $resultsArray = Util::formatSuccessHandler($app);
+
+        return $this->_app->json($resultsArray);
     }
 
     public function create(Request $request)

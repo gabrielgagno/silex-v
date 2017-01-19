@@ -15,32 +15,34 @@ use Doctrine\ORM\Query;
 
 class BaseModelRepository extends EntityRepository
 {
-    public function findAll($limit = 0, $offset = 0, $returnType = Query::HYDRATE_OBJECT)
+    public function findAll($returnType = Query::HYDRATE_OBJECT, $limit = 0, $offset = 0)
     {
         $em = Util::getApp()['orm.em'];
-        $queryString = 'SELECT c from '.$this->_entityName. ' c limit '.$limit.' offset '.$offset;
+        $qb = $em->createQueryBuilder();
+        $qb->select('u')
+            ->from($this->_entityName, 'u');
 
-        $query = $em->createQuery(
-            $queryString
-        );
+        if($limit>0) {
+            $qb->setMaxResults($limit);
+        }
+        if($offset>0) {
+            $qb->setFirstResult($offset);
+        }
 
-        return $query->getResult($returnType);
+        $query = $qb->getQuery();
+
+        $result = $query->getResult($returnType);
+        return $result;
     }
 
     public function findOne($id, $returnType = Query::HYDRATE_OBJECT)
     {
         $em = Util::getApp()['orm.em'];
-        $query = $em->createQuery(
-            'SELECT c from '.$this->_entityName. ' c where c.id='.$id
-        );
-        $result = null;
-        try{
-            $result = $query->getSingleResult($returnType);
-        } catch (\Exception $e) {
-            if($result==NULL){
-                return null;
-            }
-        }
+        $qb = $em->createQueryBuilder();
+        $qb->select('u')
+            ->from($this->_entityName, 'u')
+            ->where('u.id = '.$id);
+        $query = $qb->getQuery();
 
         return $query->getSingleResult($returnType);
     }
