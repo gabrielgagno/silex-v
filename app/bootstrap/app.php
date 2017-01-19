@@ -65,7 +65,11 @@ $app->register(new \Dflydev\Provider\DoctrineOrm\DoctrineOrmServiceProvider());
 
 # Register errors
 $app->error(function (\Exception $e, Request $request, $code) use ($app) {
-    $message = Util::formatErrorHandler($e, $request, $code);
+    $messageArray = array(
+        'developer_message' =>  $e->getMessage(),
+        'user_message'      =>  'An error has occurred. Please try again.'
+    );
+    $message = Util::formatErrorHandler($code, "100", $messageArray);
     return $app->json($message, $code);
 });
 
