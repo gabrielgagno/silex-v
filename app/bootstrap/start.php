@@ -4,7 +4,8 @@
 *  Development Servers
 */
 $development = [
-        "SP-JMacariola-HP14V015TX"
+    "SP-JMacariola-HP14V015TX",
+    "gjpgagno@HP14V016TX"
 ];
 /**
 *  Production Servers

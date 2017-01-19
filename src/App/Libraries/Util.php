@@ -40,7 +40,7 @@ class Util
         if(!$metadataArray==null) {
             return array(
                 'metadata'  =>  $metadataArray,
-                'results'   =>  $resultsArray['result']
+                'results'   =>  $resultsArray
             );
         }
         return array(

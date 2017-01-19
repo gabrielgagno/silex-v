@@ -16,7 +16,7 @@ return array(
         'host'      =>  Util::env('DB_HOST', 'localhost'),
         'dbname'    =>  Util::env('DB_DATABASE', 'unimart'),
         'user'      =>  Util::env('DB_USER', 'root'),
-        'password'  =>  Util::env('DB_PASSWORD', 'password')
+        'password'  =>  'admin'
     ),
 
     'orm.proxies_dir'   =>  __DIR__.'/../cache/doctrine/proxies',

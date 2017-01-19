@@ -31,7 +31,7 @@ class ApplicationController extends Controller
         try{
             $all = $this->_app['orm.em']->getRepository('App\Models\Application')->findAll(Query::HYDRATE_ARRAY, $limit, $offset);
         } catch (\Exception $e) {
-            return $e->getTraceAsString();
+            return $e->getMessage();
         }
 
         $metadataArray = array(
