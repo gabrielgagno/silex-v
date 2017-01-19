@@ -43,8 +43,8 @@ class BaseModelRepository extends EntityRepository
             ->from($this->_entityName, 'u')
             ->where('u.id = '.$id);
         $query = $qb->getQuery();
-
-        return $query->getSingleResult($returnType);
+        $result = $query->getOneOrNullResult($returnType);
+        return $result;
     }
 
 }

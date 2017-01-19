@@ -48,16 +48,12 @@ class Util
 
     }
 
-    public static function formatErrorHandler(\Exception $e, Request $request, $code) {
-        switch($code) {
-
-        }
-
+    public static function formatErrorHandler($status_code, $error_code, $messageArray) {
         $message = array(
-            "status"    =>  $code,
-            "developer_message" =>  $e->getMessage(),
-            "user_message"  =>  'sample message',
-            "error_code"    =>  "10"
+            "status"    =>  $status_code,
+            "developer_message" =>  $messageArray['developer_message'],
+            "user_message"  =>  $messageArray['user_message'],
+            "error_code"    =>  $error_code
         );
 
         return $message;

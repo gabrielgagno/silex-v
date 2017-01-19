@@ -49,11 +49,12 @@ class ApplicationController extends Controller
     {
         $app = $this->_app['orm.em']->getRepository('App\Models\Application')->findOne($id, Query::HYDRATE_ARRAY);
         if($app==null) {
-            return $this->_app->json(
-                array(
-                    'error' => 'not found'
-                )
+            $messageArray = array(
+                'developer_message' =>  "Resource not found",
+                'user_message'      =>  "The resource you were looking for does not exist."
             );
+            $errorMessage = Util::formatErrorHandler(404, "99", $messageArray);
+            return $this->_app->json($errorMessage, 404);
         }
 
         $resultsArray = Util::formatSuccessHandler($app);
