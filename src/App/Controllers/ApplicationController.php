@@ -106,28 +106,29 @@ class ApplicationController extends Controller
         $application  = $this->_app['orm.em']->getRepository('App\Models\Application')
             ->findOne($id);
 
-        if($application == null) {
-            return $this->_app->json(
-                array(
-                    'error' =>  'not found'
-                )
+        if($application==null) {
+            $messageArray = array(
+                'developer_message' =>  "Resource not found",
+                'user_message'      =>  "The resource you were looking for does not exist."
             );
+            $errorMessage = Util::formatErrorHandler(404, "99", $messageArray);
+            return $this->_app->json($errorMessage, 404);
         }
 
         try {
             $this->_app['orm.em']->remove($application);
             $this->_app['orm.em']->flush();
         } catch (\Exception $e) {
-            die($e->getMessage());
-            return $this->_app->json(array(
-                "error" => "error"
-            ));
+            $messageArray = array(
+                'developer_message' =>  $e->getMessage(),
+                'user_message'      =>  "A database error has occurred."
+            );
+            $errorMessage = Util::formatErrorHandler(500, "100", $messageArray);
+            return $this->_app->json($errorMessage, 500);
         }
 
         return $this->_app->json(
-            array(
-                "delete successful" => "delete"
-            )
+            Util::formatSuccessHandler("Successfully deleted the resource.")
         );
 
     }
