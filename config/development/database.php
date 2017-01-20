@@ -16,7 +16,7 @@ return array(
           'host'      =>  Util::env('DB_HOST', 'localhost'),
           'dbname'    =>  Util::env('DB_DATABASE', 'unimart'),
           'user'      =>  Util::env('DB_USER', 'root'),
-          'password'  =>  'admin'
+          'password'  =>  Util::env('DB_USER', 'password'),
     ),
 
     'orm.proxies_dir'   =>  __DIR__.'/../cache/doctrine/proxies',
@@ -26,7 +26,7 @@ return array(
             array(
                 'type'      =>  'annotation',
                 'namespace' =>  'App\Models',
-                'path'      => __DIR__ . '/../src/App/Models'
+                'path'      => __DIR__ . '/../../src/App/Models'
             )
         )
     )
