@@ -86,6 +86,7 @@ class ApplicationController extends Controller
 
     public function update(Request $request, $id)
     {
+        // TODO find a way to update
         /*
         $application  = $this->_app['orm.em']->getRepository('App\Models\Application')
             ->findOne($id);
