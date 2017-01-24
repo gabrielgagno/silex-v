@@ -15,12 +15,8 @@ use App\Libraries\Util;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-#retrieve environment
-//$environment = require_once 'start.php';
-
-//$environment = 'local';
-
 # find for .env.* file in root. if it does not exist, die
+# if it does exist, then make it the $environment variable
 $envFile = glob(__DIR__.'/../../.env.*');
 $count = count($envFile);
 switch($count) {
@@ -34,6 +30,7 @@ switch($count) {
         break;
 }
 
+# retrieving the environment from the array
 $envFile = explode('.',$envFile[0]);
 $environment = $envFile[count($envFile)-1];
 
@@ -63,7 +60,7 @@ $app->register(new Igorw\Silex\ConfigServiceProvider($config_path."/app.php"));
 # Switch $app['debug'] to on or off
 $app['debug'] = filter_var(Util::env('APP_DEBUG', false), FILTER_VALIDATE_BOOLEAN);
 
-# REGISTER SERVICS
+# REGISTER SERVICES
 
 # register logger service provider
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
@@ -100,6 +97,7 @@ $app->error(function (\Exception $e, Request $request, $code) use ($app) {
 });
 
 # ROUTES
+# This can be mounted in many different ways. Improvements later
 $app->mount('/', new \App\Routes());
 
 # initialize app in util library to be accessible everywhere
