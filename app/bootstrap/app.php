@@ -16,7 +16,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 #retrieve environment
-$environment = require_once 'start.php';
+//$environment = require_once 'start.php';
+
+$environment = 'local';
 
 #set config path
 $config_path = __DIR__."/../../config/{$environment}";
