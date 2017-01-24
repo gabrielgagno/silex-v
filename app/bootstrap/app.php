@@ -16,11 +16,29 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 #retrieve environment
-$environment = require_once 'start.php';
+//$environment = require_once 'start.php';
+
+//$environment = 'local';
+
+# find for .env.* file in root. if it does not exist, die
+$envFile = glob(__DIR__.'/../../.env.*');
+$count = count($envFile);
+switch($count) {
+    case 0:
+        die("No environment file found");
+        break;
+    case 1:
+        break;
+    default:
+        die("More than one environment file found");
+        break;
+}
+
+$envFile = explode('.',$envFile[0]);
+$environment = $envFile[count($envFile)-1];
 
 #set config path
 $config_path = __DIR__."/../../config/{$environment}";
-//
 
 
 # initialize Silex Application Instance
@@ -32,15 +50,15 @@ $app->boot();
 # THE OTHER CONFIGURABLES)
 $app->register(new Igorw\Silex\ConfigServiceProvider($config_path."/app.php"));
 
-// # initialize environment here
-// try{
-//   $app['env'] = new Dotenv\Dotenv(__DIR__.'/../../', '.env.'.$app['environment']);
-//   $app['env']->load();
-// }
-// catch (\Exception $e) {
-//   $app->json(['error' => 500, 'error_description' => 'Environment Not Found'], 500)->send();
-//   die();
-// }
+ # initialize environment here
+ try{
+   $app['env'] = new Dotenv\Dotenv(__DIR__.'/../../', '.env.'.$environment);
+   $app['env']->load();
+ }
+ catch (\Exception $e) {
+   $app->json(['error' => 500, 'error_description' => 'Environment Not Found'], 500)->send();
+   die();
+ }
 
 # Switch $app['debug'] to on or off
 $app['debug'] = filter_var(Util::env('APP_DEBUG', false), FILTER_VALIDATE_BOOLEAN);
