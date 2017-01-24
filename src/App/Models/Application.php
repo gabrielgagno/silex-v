@@ -3,16 +3,15 @@ namespace App\Models;
 
 
 /**
- * @Entity
+ * @Entity(repositoryClass="App\Models\Repositories\BaseModelRepository")
  * @Table(name="applications")
  * @package App\Models
  */
 class Application
 {
     /**
-     * @Id
-     * @Column(type="integer")
-     *
+     * @Id @Column(type="integer")
+     * @GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -84,12 +83,17 @@ class Application
         return $this->code;
     }
 
-    public function getApplication()
+    /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return Application
+     */
+    public function setId($id)
     {
-        return array(
-            'id'    =>  $this->id,
-            'name'    =>  $this->name,
-            'code'    =>  $this->code
-        );
+        $this->id = $id;
+
+        return $this;
     }
 }

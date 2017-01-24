@@ -19,12 +19,21 @@ run ```composer install``` to begin downloading dependencies.
 
 ### Configuration
 This package uses **environment files** to store information that should not be shared 
-over the repositories. Create an environment file in the format of ```.env.<prod_environment>```.
+over the repositories. Create **one** environment file in the format of ```.env.<prod_environment>```.
 For instance, if the environment is ```local``` then use ```.env.local```. It is advised to create
 separate environment settings for various setups and environments.
 
-Fill up the files with all the necessary information. Check the file ```.env.example```
-for reference. 
+Since this skeleton automatically determines which environment to use, it is important to note
+that there must be **exactly one** instance of the ```.env.*``` file.
+
+Fill up the files with all the necessary information. Check the file ```env.example```
+for reference.
+
+Other configurations can be found in the ```config``` folder. These are for other environment-specific
+configurations that are not as sensitive as the ones in the environment files. For convenience, the
+configuration folders for ```local``` and ```production``` environments are provided. If there's a need
+for more environments, just create a new ```.env.*``` file **AND** a copy any configuration folder,
+ renamed into your custom environment.
 
 ## Structure, Components, and Dependencies
 This skeleton is written in PHP using the Silex framework. While primarily using PHP 5.4, It's been
