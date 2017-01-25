@@ -86,18 +86,27 @@ class ApplicationController extends Controller
 
     public function update(Request $request, $id)
     {
-        /*
-        $application  = $this->_app['orm.em']->getRepository('App\Models\Application')
-            ->findOne($id);
 
-        if($application == null) {
-            return $this->_app->json(
-                array(
-                    'error' =>  'not found'
-                )
-            );
-        }
-        */
+      $record = $this->_app['orm.em']->getRepository('App\Models\Application')->findOne($id, Query::HYDRATE_ARRAY);
+      if($record==null) {
+      $messageArray = array(
+              'developer_message' =>  "Resource not found",
+              'user_message'      =>  "The resource you were looking for does not exist."
+          );
+          $errorMessage = Util::formatErrorHandler(404, "99", $messageArray);
+          return $this->_app->json($errorMessage, 404);
+      }
+
+      $application = new Application;
+      $application->set(array("code" => "Code","name" => "Name"));
+      $this->_app['orm.em']->persist($application);
+      $this->_app['orm.em']->flush();
+
+      $record = $this->_app['orm.em']->getRepository('App\Models\Application')->findOne($id, Query::HYDRATE_ARRAY);
+
+      $resultsArray = Util::formatSuccessHandler($record);
+
+       return $this->_app->json($resultsArray);
 
     }
 
