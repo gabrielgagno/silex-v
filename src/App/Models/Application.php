@@ -7,8 +7,9 @@ namespace App\Models;
  * @Table(name="applications")
  * @package App\Models
  */
-class Application
+class Application extends BaseModel
 {
+
     /**
      * @Id @Column(type="integer")
      * @GeneratedValue(strategy="AUTO")
@@ -96,4 +97,6 @@ class Application
 
         return $this;
     }
+
+
 }
