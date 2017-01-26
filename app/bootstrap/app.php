@@ -15,27 +15,34 @@ use App\Libraries\Util;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-# find for .env.* file in root. if it does not exist, die
-# if it does exist, then make it the $environment variable
-$envFile = glob(__DIR__.'/../../.env.*');
+# find for .env.* or .env file in root. if it does not exist, die
+# if .env exists, automatic production $environment
+# else check for .env.* and make it the environment variable
+$environment = null;
+$envFile = glob(__DIR__.'/../../.env');
 $count = count($envFile);
-switch($count) {
-    case 0:
-        die("No environment file found");
-        break;
-    case 1:
-        break;
-    default:
-        die("More than one environment file found");
-        break;
+if($count!=0) {
+    $environment = '';
+}
+else {
+    $envFile = glob(__DIR__.'/../../.env.*');
+    $count = count($envFile);
+    switch($count) {
+        case 0:
+            die("No environment file found");
+            break;
+        case 1:
+            break;
+        default:
+            die("More than one environment file found");
+            break;
+    }
+    $envFile = explode('.',$envFile[0]);
+    $environment = $envFile[count($envFile)-1];
 }
 
-# retrieving the environment from the array
-$envFile = explode('.',$envFile[0]);
-$environment = $envFile[count($envFile)-1];
-
 #set config path
-$config_path = __DIR__."/../../config/{$environment}";
+$config_path = $environment==''?__DIR__."/../../config/production":__DIR__."/../../config/{$environment}";
 
 
 # initialize Silex Application Instance
@@ -48,14 +55,15 @@ $app->boot();
 $app->register(new Igorw\Silex\ConfigServiceProvider($config_path."/app.php"));
 
  # initialize environment here
- try{
-   $app['env'] = new Dotenv\Dotenv(__DIR__.'/../../', '.env.'.$environment);
-   $app['env']->load();
- }
- catch (\Exception $e) {
-   $app->json(['error' => 500, 'error_description' => 'Environment Not Found'], 500)->send();
-   die();
- }
+try{
+//$app['env'] = new Dotenv\Dotenv(__DIR__.'/../../', '.env.'.$environment);
+    $app['env'] = new Dotenv\Dotenv(__DIR__.'/../../', $environment==''?'.env':'.env.'.$environment);
+    $app['env']->load();
+}
+catch (\Exception $e) {
+    $app->json(['error' => 500, 'error_description' => 'Environment Not Found'], 500)->send();
+    die();
+}
 
 # Switch $app['debug'] to on or off
 $app['debug'] = filter_var(Util::env('APP_DEBUG', false), FILTER_VALIDATE_BOOLEAN);
