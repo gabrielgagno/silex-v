@@ -17,7 +17,7 @@ use Silex\Application;
  * Base controller that must be extended by all other controllers
  * @package App\Controllers
  */
-abstract class Controller
+abstract class BaseController
 {
     protected $_app;
     protected $_logger;
