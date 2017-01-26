@@ -15,7 +15,7 @@ use Doctrine\ORM\Query;
 use App\Models\Application;
 use Symfony\Component\HttpFoundation\Request;
 
-class ApplicationController extends Controller
+class ApplicationController extends BaseController
 {
 
     public function __construct()
