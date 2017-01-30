@@ -1,6 +1,6 @@
 <?php
 /**
- * bootstrap/app.php
+ * bootstrap/bootstrap.php
  * The main loading file of this P2ME API Middleware
  * @author Gabriel John P. Gagno
  * @author Jose Carlo Macariola
@@ -8,7 +8,7 @@
  * @copyright 2016 Stratpoint Technologies, Inc.
  * @date 12/15/16
  */
-require_once __DIR__.'/../../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 # use libraries
 use App\Libraries\Util;
@@ -19,13 +19,13 @@ use Symfony\Component\HttpFoundation\Response;
 # if .env exists, automatic production $environment
 # else check for .env.* and make it the environment variable
 $environment = null;
-$envFile = glob(__DIR__.'/../../.env');
+$envFile = glob(__DIR__.'/../.env');
 $count = count($envFile);
 if($count!=0) {
     $environment = '';
 }
 else {
-    $envFile = glob(__DIR__.'/../../.env.*');
+    $envFile = glob(__DIR__.'/../.env.*');
     $count = count($envFile);
     switch($count) {
         case 0:
@@ -42,7 +42,7 @@ else {
 }
 
 #set config path
-$config_path = $environment==''?__DIR__."/../../config/production":__DIR__."/../../config/{$environment}";
+$config_path = $environment==''? __DIR__ . "/../config/production" :__DIR__."/../config/{$environment}";
 
 
 # initialize Silex Application Instance
@@ -57,7 +57,7 @@ $app->register(new Igorw\Silex\ConfigServiceProvider($config_path."/app.php"));
  # initialize environment here
 try{
 //$app['env'] = new Dotenv\Dotenv(__DIR__.'/../../', '.env.'.$environment);
-    $app['env'] = new Dotenv\Dotenv(__DIR__.'/../../', $environment==''?'.env':'.env.'.$environment);
+    $app['env'] = new Dotenv\Dotenv(__DIR__ . '/../', $environment==''?'.env':'.env.'.$environment);
     $app['env']->load();
 }
 catch (\Exception $e) {
@@ -72,7 +72,7 @@ $app['debug'] = filter_var(Util::env('APP_DEBUG', false), FILTER_VALIDATE_BOOLEA
 
 # register logger service provider
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
-  'monolog.logfile' => __DIR__.'/../../logs/log-'.date('Y-m-d').'.log',
+  'monolog.logfile' => __DIR__.'/../logs/log-'.date('Y-m-d').'.log',
   'monolog.name' => $app['name']
 ));
 
