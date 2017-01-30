@@ -55,31 +55,45 @@ This basic skeleton is structured as follows:
 ```
 .
 ├── app
-│   └── bootstrap
-│       └── app.php
+│   └── bootstrap.php
 ├── cache
 ├── cli-config.php
 ├── composer.json
 ├── composer.lock
 ├── config
-│   ├── app.php
-│   ├── constants.php
-│   └── database.php
+│   ├── local
+│   │   ├── app.php
+│   │   ├── constants.php
+│   │   └── database.php
+│   └── production
+│       ├── app.php
+│       ├── constants.php
+│       └── database.php
 ├── db.json
+├── env.example
 ├── logs
-├── output
+├── phpunit.xml
 ├── public
 │   └── index.php
 ├── readme.md
-└── src (psr-4 compliant directory)
-    └── App
-        ├── Controllers
-        │   └── Controller.php
-        ├── Libraries
-        │   ├── RestUtils.php
-        │   └── Util.php
-        ├── Models
-        └── Routes.php
+├── src
+│   └── App
+│       ├── Controllers
+│       │   ├── ApplicationController.php
+│       │   └── BaseController.php
+│       ├── Libraries
+│       │   ├── RestUtils.php
+│       │   └── Util.php
+│       ├── Models
+│       │   ├── Application.php
+│       │   ├── BaseModel.php
+│       │   └── Repositories
+│       │       └── BaseModelRepository.php
+│       └── Routes.php
+└── tests
+    └── App
+        └── Tests
+            └── ApplicationTest.php
 ```
 
 ## Usage
