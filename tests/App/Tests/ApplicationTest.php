@@ -14,7 +14,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
 {
     public function testIndex()
     {
-
+        $this->assertJsonStringEqualsJsonString();
     }
 
     public function testShow()
