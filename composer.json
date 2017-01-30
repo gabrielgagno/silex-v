@@ -1,7 +1,7 @@
 {
     "name": "gjpgagno/silex-v",
     "description": "Basic MVC based from Silex",
-    "version": "0.0.1",
+    "version": "0.1.5",
     "type": "project",
     "license": "MIT",
     "authors": [
