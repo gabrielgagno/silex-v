@@ -9,5 +9,5 @@
  * @date 12/15/16
  */
 
-require_once '../app/bootstrap/app.php';
+require_once '../app/bootstrap.php';
 $app->run();
