@@ -184,6 +184,10 @@ to create the tables.
 
 For more reference in using Doctrine, refer [here](http://docs.doctrine-project.org/en/latest/#).
 
+### Logging
+To log in the controllers, use the included ```$_logger``` with the base controller. In places
+where the ```$app``` is passed, use ```$app['monolog']``` and then follow monolog rules in logging.
+
 ## Testing
 A full-blown test suite is yet to be created. For now, Please go to ```public``` and run
 ```
