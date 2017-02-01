@@ -44,6 +44,7 @@ else {
 #set config path
 $config_path = $environment==''? __DIR__ . "/../config/production" :__DIR__."/../config/{$environment}";
 
+define("ROOT", __DIR__ . "/../");
 
 # initialize Silex Application Instance
 $app = new Silex\Application();
