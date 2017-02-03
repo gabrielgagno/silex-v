@@ -46,6 +46,12 @@ $config_path = $environment==''? __DIR__ . "/../config/production" :__DIR__."/..
 
 define("ROOT", __DIR__ . "/../");
 
+define("DEFAULT_LANGUAGE", "en");
+
+define("DEFAULT_MESSAGE_GROUP", "generic");
+
+define("DEFAULT_MESSAGE_SUBGROUP", "message");
+
 # initialize Silex Application Instance
 $app = new Silex\Application();
 $app->boot();
