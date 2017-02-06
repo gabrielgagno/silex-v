@@ -177,7 +177,7 @@ This will override the manually-created classes and add some basic getter and se
 this, run
 
 ```
-vendor/bin/doctrine orm:create-schema
+vendor/bin/doctrine orm:schema-tool:create
 ```
 
 to create the tables.
