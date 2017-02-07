@@ -219,8 +219,20 @@ Then, use Lang from libraries:
 
   Lang::get("en.generic.messages.hello")
 ```
-The Lang::get accepts 4 parameters as shown above.  
+The Lang::get accepts 4 parameters as shown above. It may accept fewer parameters with the following behaviors:
 
+    - with only 3 parameters , the file will default to default message group set in ```app\bootstrap``` under the specified config folder.
+    ```
+      Lang::get("en.generic.hello")
+    ```
+    - with only 2 parameters , the file will default to default ```message group``` and default ```language```  set in ```app\bootstrap``` under the specified config folder.
+    ```
+    Lang::get("generic.hello")
+    ```
+    - with only 1 parameter , the file will default to default ```message group``` , ```language``` , and default main module  set in ```app\bootstrap``` under the specified config folder.
+    ```
+    Lang::get("hello")
+    ```
 
 ## Testing
 A full-blown test suite is yet to be created. For now, Please go to ```public``` and run
