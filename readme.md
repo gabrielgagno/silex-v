@@ -188,10 +188,6 @@ For more reference in using Doctrine, refer [here](http://docs.doctrine-project.
 To log in the controllers, use the included ```$_logger``` with the base controller. In places
 where the ```$app``` is passed, use ```$app['monolog']``` and then follow monolog rules in logging.
 
-### Logging
-To log in the controllers, use the included ```$_logger``` with the base controller. In places
-where the ```$app``` is passed, use ```$app['monolog']``` and then follow monolog rules in logging.
-
 ### Lang
 To make configurable message for the app, Add messages with the following structure on config folder:
 
