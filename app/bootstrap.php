@@ -78,10 +78,25 @@ $app['debug'] = filter_var(Util::env('APP_DEBUG', false), FILTER_VALIDATE_BOOLEA
 # REGISTER SERVICES
 
 # register logger service provider
+$logLevel = \Monolog\Logger::INFO;
+if($app['debug']) {
+    $logLevel = \Monolog\Logger::DEBUG;
+}
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
-  'monolog.logfile' => __DIR__.'/../logs/log-'.date('Y-m-d').'.log',
-  'monolog.name' => $app['name']
+    'monolog.logfile' => __DIR__.'/../logs/log-'.date('Y-m-d').'.log',
+    'monolog.name' => 'silexv',
+    'monolog.level' => $logLevel
 ));
+
+$app->extend('monolog', function($monolog, $app) {
+    $handler = new \Monolog\Handler\StreamHandler(__DIR__.'/../logs/log-'.date('Y-m-d').'.log');
+    $handler->setFormatter(new \Monolog\Formatter\LineFormatter(
+        "[%datetime%] %level_name%: %message% %context%\n"
+    ));
+    $monolog->pushHandler($handler);
+
+    return $monolog;
+});
 
 # register security service provider
 $app->register(new Silex\Provider\SecurityServiceProvider());
@@ -110,7 +125,7 @@ $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     $message = Util::formatErrorHandler($code, "100", $messageArray);
     return $app->json($message, $code);
 });
-
+$app['monolog']->info('hello');
 # ROUTES
 # This can be mounted in many different ways. Improvements later
 $app->mount('/', new \App\Routes());

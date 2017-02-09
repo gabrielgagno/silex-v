@@ -60,4 +60,17 @@ class Util
 
         return $message;
     }
+
+    public static function logStartHandler($dateTime, $requestId, $requestName, $requestParams)
+    {
+        $app = Util::getApp();
+        $logger = $app['monolog'];
+
+    }
+
+    public static function logEndHandler($dateTime, $requestId, $levelName, $message)
+    {
+        $app = Util::getApp();
+        $logger = $app['monolog'];
+    }
 }
