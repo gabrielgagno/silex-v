@@ -91,7 +91,8 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
 $app->extend('monolog', function($monolog, $app) {
     $handler = new \Monolog\Handler\StreamHandler(__DIR__.'/../logs/log-'.date('Y-m-d').'.log');
     $handler->setFormatter(new \Monolog\Formatter\LineFormatter(
-        "[%datetime%] %level_name%: %message% %context%\n"
+        //"[%datetime%] %level_name%: %message% %context%\n"
+        "[%datetime%] %level_name%: %message%\n"
     ));
     $monolog->pushHandler($handler);
 
@@ -125,7 +126,7 @@ $app->error(function (\Exception $e, Request $request, $code) use ($app) {
     $message = Util::formatErrorHandler($code, "100", $messageArray);
     return $app->json($message, $code);
 });
-$app['monolog']->info('hello');
+
 # ROUTES
 # This can be mounted in many different ways. Improvements later
 $app->mount('/', new \App\Routes());
