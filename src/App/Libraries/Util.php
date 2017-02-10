@@ -67,7 +67,7 @@ class Util
         $logger = $app['monolog'];
         $message = "START ";
         $requestName = $request->getMethod()." ".$request->getRequestUri();
-        $requestParams = json_encode($request->query->all());
+        $requestParams = json_encode($request->request->all());
         $message = $message."$requestId "."$requestName "."$requestParams";
 
         $logger->info($message);
