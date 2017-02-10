@@ -28,7 +28,7 @@ class ApplicationController extends BaseController
     {
         $requestId = Uuid::uuid1()->toString();
 
-        Util::logStartHandler($requestId, "hello", "params");
+        Util::logStartHandler($requestId, $request);
 
         $limit = $request->get('limit')!=null?$request->get('limit'):0;
         $offset = $request->get('offset')!=null?$request->get('offset'):0;
