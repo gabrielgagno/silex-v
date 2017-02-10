@@ -82,8 +82,11 @@ class Util
         $msg = $msg."$requestId $message";
 
         switch($levelName) {
-            case 'error' :
+            case 'ERROR' :
                 $logger->error($msg);
+                break;
+            case 'DEBUG' :
+                $logger->debug($msg);
                 break;
             default:
                 $logger->info($msg);
