@@ -78,10 +78,22 @@ $app['debug'] = filter_var(Util::env('APP_DEBUG', false), FILTER_VALIDATE_BOOLEA
 # REGISTER SERVICES
 
 # register logger service provider
-$app->register(new Silex\Provider\MonologServiceProvider(), array(
-  'monolog.logfile' => __DIR__.'/../logs/log-'.date('Y-m-d').'.log',
-  'monolog.name' => $app['name']
-));
+$logLevel = \Monolog\Logger::INFO;
+if($app['debug']) {
+    $logLevel = \Monolog\Logger::DEBUG;
+}
+$app->register(new Silex\Provider\MonologServiceProvider());
+
+$app->extend('monolog', function($monolog, $app) {
+    $handler = new \Monolog\Handler\StreamHandler(__DIR__.'/../logs/log-'.date('Y-m-d').'.log');
+    $handler->setFormatter(new \Monolog\Formatter\LineFormatter(
+        //"[%datetime%] %level_name%: %message% %context%\n"
+        "[%datetime%] %level_name%: %message%\n"
+    ));
+    $monolog->pushHandler($handler);
+
+    return $monolog;
+});
 
 # register security service provider
 $app->register(new Silex\Provider\SecurityServiceProvider());
