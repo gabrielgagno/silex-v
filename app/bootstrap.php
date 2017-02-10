@@ -82,11 +82,7 @@ $logLevel = \Monolog\Logger::INFO;
 if($app['debug']) {
     $logLevel = \Monolog\Logger::DEBUG;
 }
-$app->register(new Silex\Provider\MonologServiceProvider(), array(
-    'monolog.logfile' => __DIR__.'/../logs/log-'.date('Y-m-d').'.log',
-    'monolog.name' => 'silexv',
-    'monolog.level' => $logLevel
-));
+$app->register(new Silex\Provider\MonologServiceProvider());
 
 $app->extend('monolog', function($monolog, $app) {
     $handler = new \Monolog\Handler\StreamHandler(__DIR__.'/../logs/log-'.date('Y-m-d').'.log');

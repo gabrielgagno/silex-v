@@ -18,7 +18,8 @@
         "symfony/yaml": "^3.2",
         "symfony/monolog-bridge": "^3.2",
         "dflydev/doctrine-orm-service-provider": "^2.0",
-        "phpunit/phpunit": "^5.7"
+        "phpunit/phpunit": "^5.7",
+        "ramsey/uuid": "^3.5"
     },
     "autoload" : {
         "psr-4" : {

@@ -13,6 +13,7 @@ use App\Libraries\RestUtils;
 use App\Libraries\Util;
 use Doctrine\ORM\Query;
 use App\Models\Application;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 
 class ApplicationController extends BaseController
@@ -25,6 +26,10 @@ class ApplicationController extends BaseController
 
     public function index(Request $request)
     {
+        $requestId = Uuid::uuid1()->toString();
+
+        Util::logStartHandler($requestId, "hello", "params");
+
         $limit = $request->get('limit')!=null?$request->get('limit'):0;
         $offset = $request->get('offset')!=null?$request->get('offset'):0;
 
@@ -39,7 +44,7 @@ class ApplicationController extends BaseController
             'offset'      =>  $offset,
             'count'       =>  count($all)
         );
-
+        Util::logEndHandler($requestId, "INFO", "success");
         $resultsArray = Util::formatSuccessHandler($all, $metadataArray);
 
         return $this->_app->json($resultsArray);
