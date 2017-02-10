@@ -18,7 +18,7 @@ The machine has to have the following installed:
 run ```composer install``` to begin downloading dependencies.
 
 ### Configuration
-This package uses **environment files** to store information that should not be shared 
+This package uses **environment files** to store information that should not be shared
 over the repositories. Create **one** environment file in the format of ```.env.<prod_environment>```.
 For instance, if the environment is ```local``` then use ```.env.local```. It is advised to create
 separate environment settings for various setups and environments.
@@ -187,6 +187,48 @@ For more reference in using Doctrine, refer [here](http://docs.doctrine-project.
 ### Logging
 To log in the controllers, use the included ```$_logger``` with the base controller. In places
 where the ```$app``` is passed, use ```$app['monolog']``` and then follow monolog rules in logging.
+
+### Lang
+To make configurable message for the app, Add messages with the following structure on config folder:
+
+```
+.
+└── config
+    └── lang
+        ├── en
+        │   ├── applications
+        │   │   ├── errors.php
+        │   │   └── messages.php
+        │   ├── applications
+        │   │   ├── errors.php
+        │   │   └── messages.php  
+        └── fr
+            └── generic
+                ├── errors.php
+                └── messages.php
+
+```
+Then, use Lang from libraries:
+```
+  use App\Libraries\Lang;
+
+
+  Lang::get("en.generic.messages.hello")
+```
+The Lang::get accepts 4 parameters as shown above. It may accept fewer parameters with the following behaviors:
+
+    - with only 3 parameters , the file will default to default message group set in ```app\bootstrap``` under the specified config folder.
+    ```
+      Lang::get("en.generic.hello")
+    ```
+    - with only 2 parameters , the file will default to default ```message group``` and default ```language```  set in ```app\bootstrap``` under the specified config folder.
+    ```
+    Lang::get("generic.hello")
+    ```
+    - with only 1 parameter , the file will default to default ```message group``` , ```language``` , and default main module  set in ```app\bootstrap``` under the specified config folder.
+    ```
+    Lang::get("hello")
+    ```
 
 ## Testing
 A full-blown test suite is yet to be created. For now, Please go to ```public``` and run
