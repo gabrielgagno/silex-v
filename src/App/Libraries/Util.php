@@ -60,4 +60,37 @@ class Util
 
         return $message;
     }
+
+    public static function logStartHandler($requestId, Request $request)
+    {
+        $app = Util::getApp();
+        $logger = $app['monolog'];
+        $message = "START ";
+        $requestName = $request->getMethod()." ".$request->getRequestUri();
+        $requestParams = json_encode($request->request->all());
+        $message = $message."$requestId "."$requestName "."$requestParams";
+
+        $logger->info($message);
+    }
+
+    public static function logEndHandler($requestId, $levelName, $message)
+    {
+        $app = Util::getApp();
+        $logger = $app['monolog'];
+        $msg = "END ";
+
+        $msg = $msg."$requestId $message";
+
+        switch($levelName) {
+            case 'ERROR' :
+                $logger->error($msg);
+                break;
+            case 'DEBUG' :
+                $logger->debug($msg);
+                break;
+            default:
+                $logger->info($msg);
+                break;
+        }
+    }
 }
