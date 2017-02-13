@@ -185,8 +185,12 @@ to create the tables.
 For more reference in using Doctrine, refer [here](http://docs.doctrine-project.org/en/latest/#).
 
 ### Logging
-To log in the controllers, use the included ```$_logger``` with the base controller. In places
-where the ```$app``` is passed, use ```$app['monolog']``` and then follow monolog rules in logging.
+Logging is generally done by two methods inside ```Util``` class: the ```logStart``` and the ```logEnd```
+methods. These two methods are meant to be used together and is useful in determining the running time of
+a controller action as well as determining if a request is successful.
+
+It is advised to put these two methods in the start and end (either when catching errors or in sending
+success notice) of requests.
 
 ### Lang
 To make configurable message for the app, Add messages with the following structure on config folder:
@@ -215,7 +219,7 @@ Then, use Lang from libraries:
 
   Lang::get("en.generic.messages.hello")
 ```
-The Lang::get accepts 4 parameters as shown above. It may accept fewer parameters with the following behaviors:
+The ```Lang::get``` accepts 4 parameters as shown above. It may accept fewer parameters with the following behaviors:
 
     - with only 3 parameters , the file will default to default message group set in ```app\bootstrap``` under the specified config folder.
     ```
