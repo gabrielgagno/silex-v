@@ -235,7 +235,36 @@ The ```Lang::get``` accepts 4 parameters as shown above. It may accept fewer par
     ```
 
 ## Testing
-A full-blown test suite is yet to be created. For now, Please go to ```public``` and run
+The skeleton implements **PHPUnit** for its testing framework. To add tests for your App,
+simply add your class inside ```test\App\Test```.
+```
+.
+└── App
+    └── Test
+        ├── Controller
+        │   └── ApiControllerTest.php
+        ├── Library
+        │   └── UtilTest.php  
+        └── ApplicationTest.php
+           
+```
+Then extend PHPUnit_Framework_TestCase and start adding tests. By Using PHPUnit,
+We will be able to take advantage of its existing assertions and utility methods.
+
+```
+namespace App\Tests;
+
+class ApplicationTest extends \PHPUnit_Framework_TestCase
+{
+    public function testIndex()
+    {
+        $this-assertTrue(true);
+    }
+```
+
+For more reference in using PHPUnit, refer [here](https://phpunit.de/manual/6.0/en/index.html).
+
+To Manually test the app ,Please go to ```public``` and run
 ```
     php -S <server_address> index.php
 ```
